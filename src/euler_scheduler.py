@@ -6,7 +6,7 @@ import torch
 from typing import List, Optional, Tuple, Union
 import numpy as np
 
-from src.eunms import Epsilon_Update_Type
+#from src.eunms import Epsilon_Update_Type
 
 class EulerAncestralDiscreteSchedulerOutput(BaseOutput):
     """
@@ -167,7 +167,8 @@ class MyEulerAncestralDiscreteScheduler(EulerAncestralDiscreteScheduler):
         timestep: Union[float, torch.FloatTensor],
         sample: torch.FloatTensor,
         expected_prev_sample: torch.FloatTensor,
-        update_epsilon_type=Epsilon_Update_Type.OVERRIDE,
+        #update_epsilon_type=Epsilon_Update_Type.OVERRIDE,
+        #update_epsilon_type=None,
         generator: Optional[torch.Generator] = None,
         return_dict: bool = True,
     ) -> Union[EulerAncestralDiscreteSchedulerOutput, Tuple]:
@@ -254,7 +255,8 @@ class MyEulerAncestralDiscreteScheduler(EulerAncestralDiscreteScheduler):
 
         if sigma_up > 0:
             req_noise = (expected_prev_sample - prev_sample) / sigma_up
-            if update_epsilon_type == Epsilon_Update_Type.OVERRIDE:
+            #if update_epsilon_type == Epsilon_Update_Type.OVERRIDE:
+            if True:
                 self.noise_list[self.step_index] = req_noise
             else:
                 for i in range(10):
