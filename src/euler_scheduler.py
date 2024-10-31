@@ -117,7 +117,7 @@ class MyEulerAncestralDiscreteScheduler(EulerAncestralDiscreteScheduler):
         sample = sample.to(torch.float32)
 
         # 1. compute predicted original sample (x_0) from sigma-scaled predicted noise
-        if self.config.prediction_type == "":
+        if self.config.prediction_type == "epsilon":
             pred_original_sample = sample - sigma * model_output
         elif self.config.prediction_type == "v_prediction":
             # * c_out + input * c_skip
@@ -126,7 +126,7 @@ class MyEulerAncestralDiscreteScheduler(EulerAncestralDiscreteScheduler):
             raise NotImplementedError("prediction_type not implemented yet: sample")
         else:
             raise ValueError(
-                f"prediction_type given as {self.config.prediction_type} must be one of ``, or `v_prediction`"
+                f"prediction_type given as {self.config.prediction_type} must be one of `epsilon`, or `v_prediction`"
             )
 
         sigma_from = self.sigmas[self.step_index]
@@ -167,7 +167,7 @@ class MyEulerAncestralDiscreteScheduler(EulerAncestralDiscreteScheduler):
         timestep: Union[float, torch.FloatTensor],
         sample: torch.FloatTensor,
         expected_prev_sample: torch.FloatTensor,
-        #update__type=_Update_Type.OVERRIDE,
+        #update_epsilon_type=Epsilon_Update_Type.OVERRIDE,
         update_epsilon_type=None,
         generator: Optional[torch.Generator] = None,
         return_dict: bool = True,
